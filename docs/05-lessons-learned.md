@@ -194,7 +194,7 @@ The 185.156.73.74 storytelling section above is the empirical case for the DC RD
 
 ## 9. Behavioural Detection vs Signature Detection
 
-The single biggest take-away from running this lab end to end : **none of the 11 techniques used a signed-offensive-tool signature**. All 11 used legitimate Windows tooling, PowerShell, and built-in `.NET` assemblies. A SIEM rule that blocks `mimikatz.exe` would have produced zero detections in this lab.
+The single biggest take-away from running this lab end to end : **none of the 11 techniques used a signed-offensive-tool signature**. All 11 used legitimate Windows tooling, PowerShell, and built-in `.NET` assemblies. A signature-based detection that blocks `mimikatz.exe` would have produced zero detections in this lab.
 
 What worked instead :
 

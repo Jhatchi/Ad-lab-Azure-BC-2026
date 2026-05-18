@@ -1,8 +1,6 @@
 # 03. Detection Scenarios (6 native)
 
-Six attack scenarios executed on `dc01` during Day 3, with captured Event Viewer output and a SIEM-agnostic detection rule for each. All outputs are real captures from the lab, anonymized per the rules in `evidence/README.md`. The five bonus Red/Blue techniques are documented separately in `04-redblue-techniques.md`. The full MITRE ATT&CK mapping is in `06-mitre-mapping.md`.
-
-> Formal Sigma rule conversions and SPL / KQL ports are planned for v2 (see `evidence/README.md`).
+Six attack scenarios executed on `dc01` during Day 3, with the captured Event Viewer output and a native detection event mapping for each. All outputs are real captures from the lab, anonymized per the rules in `evidence/README.md`. The five bonus Red/Blue techniques are documented separately in `04-redblue-techniques.md`. The full MITRE ATT&CK mapping is in `06-mitre-mapping.md`.
 
 ---
 

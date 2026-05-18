@@ -1,12 +1,12 @@
 # Evidence
 
-This directory is a placeholder in v1. The complete v1 deliverable is textual : verbatim Event Viewer captures, detection rule logic, and design rationale all live inside `docs/`. No screenshots, no exported GPO HTML, no Sigma rule files are committed yet.
+This directory is a placeholder in v1. The complete v1 deliverable is textual : verbatim Event Viewer captures, native detection event mapping, and design rationale all live inside `docs/`. No screenshots and no exported GPO HTML are committed yet.
 
 ## Why text first, visuals later
 
 v1 prioritises proving comprehension of the build and the detection chain over visual polish. Every captured Event Viewer output quoted in `docs/03-detection-scenarios.md` and `docs/04-redblue-techniques.md` is real, came from a real run on the Azure lab on 23-24 March 2026, and is anonymized per the rules below.
 
-Visual artifacts (screenshots, GPO HTML exports, Sigma rules, SIEM integration code, replay scripts) are the v2 deliverable. They will be added in a separate session after rapatriating files from the Azure VM and investing the SIEM stand-up time.
+Visual artifacts (Event Viewer screenshots, GPO HTML exports) are the v2 deliverable. They will be added in a separate session after rapatriating the files from the Azure VM.
 
 ## v2 Roadmap
 
@@ -27,31 +27,6 @@ Already generated on the VM during the lab, stored in `Documents\windows\` on `d
 
 - [ ] `default-domain-policy.html`
 - [ ] `security-monitoring.html`
-
-### Detection rules ( `detection-rules/` )
-
-Formal Sigma rule files for the 11 MITRE techniques mapped in `docs/06-mitre-mapping.md`, with conversion verified on at least two SIEMs :
-
-- [ ] 11 Sigma YAML files (one per technique)
-- [ ] Splunk SPL ports
-- [ ] Elastic KQL ports
-
-### SIEM integration ( `siem-integration/` )
-
-A docker-compose Elastic stack and forwarder config so a reader can replay the detection chain locally :
-
-- [ ] `docker-compose.yml` for Elasticsearch + Kibana + Winlogbeat
-- [ ] `winlogbeat.yml` configured to forward `dc01` + `ws01` Windows logs
-- [ ] Example Kibana dashboards covering the 11 detection signals
-- [ ] End-to-end documentation : Windows host > Winlogbeat > Elastic > Kibana > alert
-
-### Test harness ( `tests/` )
-
-Replayable PowerShell scripts that exercise each technique against a freshly built lab, validating that detection still fires :
-
-- [ ] 6 native scenario replays
-- [ ] 5 Red/Blue technique replays
-- [ ] CI mode : run on a schedule, assert that expected Event IDs surfaced within N minutes
 
 ## Anonymization Rules Applied to v1 Docs
 
@@ -81,7 +56,7 @@ What v1 documentation contains :
 - Verbatim Event Viewer outputs for 11 techniques, captured during real test runs on 23-24 March 2026
 - Real PowerShell trigger workflows (Kerberoasting, AS-REP setup, PSRemoting prep, NLA bypass)
 - Cross-referenced consistency checks (logon IDs, SIDs, timestamps align across multiple events of the same chain)
-- SIEM-agnostic detection rule logic for all 11 techniques
+- Native Event Viewer detection logic for all 11 techniques
 
 What v1 documentation does NOT contain :
 

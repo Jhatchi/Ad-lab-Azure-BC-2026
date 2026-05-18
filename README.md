@@ -22,7 +22,7 @@ The detection techniques described in this repository are intended for defensive
 - Instrumented both hosts with Sysmon 15.15 (SwiftOnSecurity config) and PowerShell ScriptBlock logging.
 - Ran 6 native attack scenarios + 5 Red/Blue purple-team techniques covering 11 MITRE ATT&CK techniques across 6 tactics. **Detection rate : 11 / 11.**
 - Observed an unsolicited external credential-stuffing attack from `185.156.73.74` against the exposed DC during the lab's monitoring window. Captured the full Event 4625 chain and used it as real-world validation of the detection stack.
-- Documented 7 SIEM-agnostic detection rules ready for Sigma conversion in v2.
+- Captured 11 Event Viewer detection events end-to-end across the 11 MITRE techniques exercised in the lab.
 
 ---
 
@@ -37,7 +37,7 @@ The detection techniques described in this repository are intended for defensive
 | Red/Blue bonus techniques                | 5     |
 | MITRE ATT&CK techniques mapped           | 11    |
 | Captured Event Viewer outputs (verbatim) | 11    |
-| Detection rule logics drafted            | 7     |
+| Native detection events documented       | 11    |
 | Sysmon installations (DC + client)       | 2     |
 | Real-world external attacks observed     | 1     |
 | Accepted risks documented and justified  | 8     |
@@ -207,7 +207,7 @@ Ad-lab-Azure-BC-2026/
 |-- scripts/
 |   `-- powershell-snippets.md         # reusable build + hunting + trigger commands
 `-- evidence/
-    `-- README.md                      # v1 methodology + v2 roadmap (screenshots, GPO, Sigma)
+    `-- README.md                      # v1 methodology + v2 roadmap (screenshots, GPO exports)
 ```
 
 ---
@@ -229,9 +229,6 @@ Ad-lab-Azure-BC-2026/
 
 - [ ] Event Viewer screenshots for the 5 most distinctive captures (`evidence/screenshots/`)
 - [ ] GPO HTML exports : Default Domain Policy + Security-Monitoring (`evidence/gpo-reports/`)
-- [ ] 11 formal Sigma rule files with Splunk SPL + Elastic KQL ports (`detection-rules/`)
-- [ ] Local Elastic stack via docker-compose with Winlogbeat forwarder and Kibana dashboards (`siem-integration/`)
-- [ ] Replayable detection test scripts, red and blue side (`tests/`)
 - [ ] Live detection demo (GIF or video walkthrough)
 
 Full v2 plan and per-artifact justification in [`evidence/README.md`](evidence/README.md).

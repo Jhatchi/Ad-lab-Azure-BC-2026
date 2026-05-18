@@ -138,7 +138,7 @@ Both VMs installed within minutes of each other to keep Event ID timeline compar
 
 ### Detection drills
 
-Full writeups with captured Event Viewer outputs and detection rule logic :
+Full writeups with captured Event Viewer outputs and the detection event mapping :
 
 - 6 native scenarios : see `03-detection-scenarios.md`
 - 5 Red/Blue bonus techniques : see `04-redblue-techniques.md`

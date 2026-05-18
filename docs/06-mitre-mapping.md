@@ -50,4 +50,4 @@ Both are blind spots in default Windows auditing. Both are common attacker techn
 
 ## v2 Plan
 
-Formal Sigma rule files for each of the 11 techniques are planned for v2, with conversion validation on at least two SIEMs (Elastic KQL and Splunk SPL). See `evidence/README.md` for the full v2 roadmap.
+v2 plan : Event Viewer screenshots for the 5-6 most distinctive captures, plus gpo_report.html exports (Default Domain Policy + Security-Monitoring) rapatriated from the Azure VM. See `evidence/README.md` for the full v2 scope.

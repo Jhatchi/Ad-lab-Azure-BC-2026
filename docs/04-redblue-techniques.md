@@ -1,6 +1,6 @@
 # 04. Red / Blue Bonus Techniques (5)
 
-Five offensive techniques run on the lab as a purple-team exercise. Each is documented as a complete chain : reconnaissance, trigger, captured detection event, and SIEM-agnostic detection rule. All commands ran inside the lab. None of these techniques required Mimikatz, Rubeus, Impacket, or any other third-party offensive tool : pure PowerShell and built-in Windows utilities.
+Five offensive techniques run on the lab as a purple-team exercise. Each is documented as a complete chain : reconnaissance, trigger, captured detection event, and the native detection event mapping. All commands ran inside the lab. None of these techniques required Mimikatz, Rubeus, Impacket, or any other third-party offensive tool : pure PowerShell and built-in Windows utilities.
 
 > The point of running these without third-party tools is to demonstrate that signature-based detection (block `mimikatz.exe`, block `Rubeus.exe`) is insufficient. All five techniques here would evade an AV that only knows offensive tool signatures, yet all five generate behavioural signals that the lab's logging chain caught.
 

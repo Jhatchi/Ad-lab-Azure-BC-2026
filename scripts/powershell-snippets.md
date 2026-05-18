@@ -72,23 +72,11 @@ Get-ADUser -Filter {DoesNotRequirePreAuth -eq $true} `
 
 Any non-empty result is an immediate finding. Schedule daily.
 
-### 2.3 PSRemoting outbound from DC
-
-Pivot to find PSRemoting outbound from the DC (a behaviour that should be rare to non-existent). Run this against your SIEM, not against the host.
-
-```
-index=sysmon EventID=3 host=dc01
-  | search Image="*\\powershell.exe" DestinationPort IN (5985,5986) Initiated=true
-  | stats count by User, DestinationHostname, DestinationIp, DestinationPort
-```
-
-(SPL-style pseudo-query, real Sigma rule planned for v2.)
-
 ---
 
 ## 3. Red/Blue technique triggers
 
-These are the exact commands used in the lab to produce captured detection events. Reproducing them on a system you do not own is unauthorised. Reproducing them on a lab you own is fair game and is how a defender validates that the detection chain still works after a Sysmon config change or a SIEM rewrite.
+These are the exact commands used in the lab to produce captured detection events. Reproducing them on a system you do not own is unauthorised. Reproducing them on a lab you own is fair game and is how a defender validates that the detection chain still works after a Sysmon config change.
 
 ### 3.1 Encoded PowerShell payload generation
 

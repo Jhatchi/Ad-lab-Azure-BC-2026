@@ -223,7 +223,7 @@
 
 ## 12. Detection Verification Summary
 
-See `03-detection-scenarios.md` for the 6 native scenarios and `04-redblue-techniques.md` for the 5 bonus Red/Blue techniques. Each scenario is documented with the captured Event Viewer output, a MITRE ATT&CK mapping, and a SIEM-agnostic detection rule.
+See `03-detection-scenarios.md` for the 6 native scenarios and `04-redblue-techniques.md` for the 5 bonus Red/Blue techniques. Each scenario is documented with the captured Event Viewer output, a MITRE ATT&CK mapping, and a native detection event mapping.
 
 | Scope                  | Scenarios | Detection rate |
 |------------------------|-----------|----------------|

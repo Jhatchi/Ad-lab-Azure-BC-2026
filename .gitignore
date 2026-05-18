@@ -1,0 +1,38 @@
+# Personal source-of-truth notes (contains real hostnames, IPs, passwords)
+# NEVER push to GitHub.
+raw/
+
+# macOS
+.DS_Store
+._*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Local-only files
+*.local
+*.local.md
+
+# Raw evidence not yet anonymized (v2 will populate evidence/screenshots and evidence/gpo-reports)
+evidence/screenshots/*
+!evidence/screenshots/.gitkeep
+evidence/gpo-reports/*
+!evidence/gpo-reports/.gitkeep
+
+# Logs and exports
+*.log
+*.evtx
+*.csv.bak
+
+# Archives
+*.zip
+*.tar.gz
+*.7z
+
+# OS junk
+Thumbs.db
+desktop.ini

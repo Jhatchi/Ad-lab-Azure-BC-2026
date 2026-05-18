@@ -10,8 +10,8 @@
 |----------------|-------------------|
 | Resource group | rg-lab-ad         |
 | Region         | Sweden Central    |
-| VM size DC     | Standard_B2s      |
-| VM size client | Standard_B2s      |
+| VM size DC     | Standard_B2ls_v2  |
+| VM size client | Standard_B2als_v2 |
 | Auto-shutdown  | 17:00 UTC+1       |
 
 ---

@@ -46,7 +46,7 @@ The detection techniques described in this repository are intended for defensive
 
 ## Tools used
 
-- **Azure** (Sweden Central, single VNet, Standard_B2s VMs)
+- **Azure** (Sweden Central, single VNet, Standard_B2ls_v2 (DC) and Standard_B2als_v2 (client) VMs)
 - **Windows Server 2025** for `dc01` (AD DS, DNS, DHCP, forest functional level WS 2025)
 - **Windows 10 Enterprise LTSC** for `ws01`
 - **Sysmon v15.15** with the SwiftOnSecurity `sysmon-config` baseline

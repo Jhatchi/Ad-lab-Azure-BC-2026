@@ -92,6 +92,44 @@ Conditions :
 
 Internal password spray needs a threshold (5 in 15 minutes). External password spray against non-existent accounts is anomalous from the very first event and warrants immediate alerting.
 
+### Threat Intel Corroboration (Open-Source)
+
+Live open-source threat intel investigation of `185.156.73.74`, performed during the lab on 24/03/2026 against the public VirusTotal IP report, and re-verified on 18/05/2026 to confirm the verdict persistence. This step elevates the lab capture from a passive observation to an investigated finding, the posture a junior CTI analyst would take on every interesting external IP that shows up in their logs.
+
+**VirusTotal verdict** :
+
+- Detection score : **7 / 92** security vendors flag the IP as malicious, plus 1 flagging suspicious
+- Vendors flagging as malicious : ADMINUSLabs, alphaMountain.ai, Chong Lua Dao, CyRadar, Forcepoint ThreatSeeker, Guardpot, SOCRadar (Malware)
+- Vendor flagging as suspicious : AlphaSOC
+- Community score : -1
+- Last analysis on VirusTotal : 25 days ago at the time of the query
+
+**Network attribution** :
+
+- ASN : AS 211736 (FOP Dmytro Nedilskyi)
+- Network name : Reldas-net (`185.156.73.0/24`)
+- Registered country : Ukraine (UA) via RIPE NCC
+- Maintainer : `ru-ip84-1-mnt`. A Russian-prefixed maintainer handle on a Ukrainian netblock is itself a notable artefact and consistent with the broader pattern of cross-border infrastructure overlap in this region.
+- Organisation : ORG-TE87-RIPE (TOV E-RISHENNYA, Kiev, Ukraine)
+
+**Crowdsourced threat intel (Guardpot honeypot network)** :
+
+- Verdict severity : HIGH
+- Category : Remote command execution and system compromise
+- Total observed events : **286** distinct attack events
+- Period observed : 2025-04-18 22:03 UTC to 2025-05-17 21:43 UTC
+- Attack type breakdown :
+  - `tcp-portscan` : 96 events
+  - `smtp-request` : 70 events
+  - `ftp-command` : 48 events
+  - `imap-request` : 26 events
+  - `mysql-login` : 25 events
+  - `mssql-login` : 21 events
+
+**Interpretation, what this changes vs the initial lab observation :** the lab captured RDP-targeted credential stuffing only. The wider threat intel confirms that `185.156.73.74` is a multi-protocol scanner and login-probe node hitting at least six distinct service stacks (TCP port reconnaissance, mail SMTP and IMAP, file transfer FTP, databases MySQL and MSSQL). The bot's behaviour against the lab DC is one slice of a broader opportunistic scanning operation, not a targeted attack against this specific lab. This profile fits the textbook description of credential-stuffing infrastructure used by ransomware affiliates and initial-access brokers, exactly the threat model the lab's monitoring chain was built to detect.
+
+Source : VirusTotal IP report at <https://www.virustotal.com/gui/ip-address/185.156.73.74>, queried first during the lab on 24/03/2026 and re-verified on 18/05/2026. The data above reflects the state at the time of the most recent verification. Verdicts may evolve over time ; readers can check the current status at the link above.
+
 ---
 
 ## 2. SwiftOnSecurity LSASS Whitelist : the LOLBin Trade-Off

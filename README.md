@@ -176,6 +176,8 @@ Pattern observed across multiple successive events :
 
 This is empirical evidence that any internet-exposed DC is targeted within its monitoring window. It justifies every accepted risk in the documentation with real weight, and it validates the entire monitoring chain end to end against unsolicited real traffic.
 
+Open-source threat intel corroboration on the source IP : 7 / 92 vendors flag it malicious, 286 documented attack events across 6 protocols (port scan, MSSQL / MySQL / FTP / IMAP / SMTP). See [`docs/05-lessons-learned.md`](docs/05-lessons-learned.md) for the full intel block.
+
 Dedicated writeup : [`docs/05-lessons-learned.md`](docs/05-lessons-learned.md) section 1.
 
 ### Other take-aways

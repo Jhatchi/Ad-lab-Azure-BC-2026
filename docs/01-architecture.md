@@ -23,7 +23,7 @@
    |                                                      |
    |   Resource group : rg-lab-ad                         |
    |   Region         : Sweden Central                    |
-   |   VM size        : Standard_B2s                      |
+   |   VM size        : B2ls_v2 (dc01) / B2als_v2 (ws01)  |
    |   Auto-shutdown  : 17:00 UTC+1                       |
    +------------------------------------------------------+
 ```
@@ -36,7 +36,8 @@ Lab is hosted entirely in a single Azure VNet. Both VMs sit in the same subnet s
 
 - Resource group : `rg-lab-ad`
 - Region : Sweden Central
-- VM size : Standard_B2s (both DC and client)
+- VM size DC : Standard_B2ls_v2 (Intel, 2 vCPU, 4 GB RAM)
+- VM size client : Standard_B2als_v2 (AMD, 2 vCPU, 8 GB RAM)
 - Auto-shutdown : 17:00 UTC+1
 
 **Domain Controller :**
@@ -67,7 +68,7 @@ Lab is hosted entirely in a single Azure VNet. Both VMs sit in the same subnet s
 | Single Azure VNet, both VMs in same subnet      | Minimises Kerberos / DNS / DHCP misconfiguration risk for a 3 day exercise.                             |
 | Windows Server 2025 for the DC                  | Highest available forest functional level, exposes the latest event schema (e.g. Sysmon 15.15 fields).  |
 | Windows 10 Enterprise LTSC for the client       | Matches typical SMB endpoint deployment, stable for repeated detection drills.                         |
-| Standard_B2s sizing                             | Cheap burstable, enough for AD DS + DNS + DHCP + Sysmon. Cost matters for a lab kept online for 3 days. |
+| B2ls_v2 (DC) / B2als_v2 (client) sizing         | Azure for Students subscription budget constraint. B2ls_v2 (DC, Intel Xeon, 2 vCPU / 4 GB RAM) and B2als_v2 (client, AMD EPYC, 2 vCPU / 8 GB RAM) were the cheapest burstable v2 sizes available at the time of provisioning. The AMD variant happens to ship with more RAM per vCPU than the Intel equivalent, which is acceptable since the client absorbs the bulkier Windows 10 Enterprise workload. |
 | Sweden Central region                           | Low Azure cost tier, no compliance constraint for a lab.                                                |
 | Auto-shutdown at 17:00 UTC+1                    | Cost control, mandatory in BeCode lab guidance.                                                         |
 | Sysmon on both DC and client                    | Authentication events live on the DC, action events live on the workstation. Both halves needed.       |

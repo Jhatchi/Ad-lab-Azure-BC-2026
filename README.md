@@ -1,6 +1,6 @@
 # AD Lab Azure : Build, Harden, Detect
 
-> Three day BeCode lab (BCC-2026, March 2026) building an Active Directory domain on Azure, hardening it with group policy, instrumenting it with Sysmon and PowerShell logging, and running 11 attack techniques to validate the detection chain end to end.
+> Three day BeCode lab (BC-2026, March 2026) building an Active Directory domain on Azure, hardening it with group policy, instrumenting it with Sysmon and PowerShell logging, and running 11 attack techniques to validate the detection chain end to end.
 >
 > One of those 11 was unsolicited : an external bot started credential-stuffing the DC during the monitoring window. That capture is the centrepiece of [Notable findings](#notable-findings).
 

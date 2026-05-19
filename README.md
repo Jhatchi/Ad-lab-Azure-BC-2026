@@ -209,7 +209,13 @@ Ad-lab-Azure-BC-2026/
 |-- scripts/
 |   `-- powershell-snippets.md         # reusable build + hunting + trigger commands
 `-- evidence/
-    `-- README.md                      # v1 methodology + v2 roadmap (screenshots, GPO exports)
+    |-- README.md                      # methodology + v2 roadmap (screenshots, GPO exports)
+    |-- screenshots/                   # v2 : Event Viewer captures (PNG)
+    |   |-- 01-kerberoasting-4769-rc4.png
+    |   `-- 02-external-attack-4625-185.156.73.74.png
+    `-- gpo-reports/                   # v2 : navigable HTML GPO exports (UTF-8)
+        |-- 01-default-domain-policy.html
+        `-- 02-security-monitoring-policy.html
 ```
 
 ---
@@ -227,10 +233,10 @@ Ad-lab-Azure-BC-2026/
 - [x] MITRE ATT&CK consolidated mapping (`docs/06-mitre-mapping.md`)
 - [x] Reusable PowerShell snippets (`scripts/powershell-snippets.md`)
 
-### v2.0 (separate session, after VM restart)
+### v2.0 (shipped)
 
-- [ ] Event Viewer screenshots for the 5 most distinctive captures (`evidence/screenshots/`)
-- [ ] GPO HTML exports : Default Domain Policy + Security-Monitoring (`evidence/gpo-reports/`)
+- [x] Event Viewer screenshots : [Kerberoasting 4769 RC4](evidence/screenshots/01-kerberoasting-4769-rc4.png) and [external attack 4625 from 185.156.73.74](evidence/screenshots/02-external-attack-4625-185.156.73.74.png)
+- [x] GPO HTML exports (navigable, not just textual) : [Default Domain Policy](evidence/gpo-reports/01-default-domain-policy.html) and [Security-Monitoring](evidence/gpo-reports/02-security-monitoring-policy.html)
 - [ ] Live detection demo (GIF or video walkthrough)
 
 Full v2 plan and per-artifact justification in [`evidence/README.md`](evidence/README.md).

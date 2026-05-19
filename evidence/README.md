@@ -1,32 +1,36 @@
 # Evidence
 
-This directory is a placeholder in v1. The complete v1 deliverable is textual : verbatim Event Viewer captures, native detection event mapping, and design rationale all live inside `docs/`. No screenshots and no exported GPO HTML are committed yet.
+This directory holds the v2 visual deliverables : 2 Event Viewer screenshots and 2 GPO HTML reports rapatriated from the Azure VM. The textual v1 deliverable (verbatim Event Viewer captures, native detection event mapping, design rationale) remains in `docs/`.
 
 ## Why text first, visuals later
 
-v1 prioritises proving comprehension of the build and the detection chain over visual polish. Every captured Event Viewer output quoted in `docs/03-detection-scenarios.md` and `docs/04-redblue-techniques.md` is real, came from a real run on the Azure lab on 23-24 March 2026, and is anonymized per the rules below.
+v1 prioritised proving comprehension of the build and the detection chain over visual polish. Every captured Event Viewer output quoted in `docs/03-detection-scenarios.md` and `docs/04-redblue-techniques.md` is real, came from a real run on the Azure lab on 23-24 March 2026, and is anonymized per the rules below.
 
-Visual artifacts (Event Viewer screenshots, GPO HTML exports) are the v2 deliverable. They will be added in a separate session after rapatriating the files from the Azure VM.
+v2 adds visual artifacts (Event Viewer screenshots, GPO HTML exports) rapatriated from the Azure VM on 19 May 2026.
 
 ## v2 Roadmap
 
-### Screenshots ( `evidence/screenshots/` )
+### Screenshots ( `evidence/screenshots/` ) - SHIPPED IN v2
 
-Targeted Event Viewer captures, one per major detection signal :
+Targeted Event Viewer captures :
 
-- [ ] `01-kerberoasting-4769.png` (Service Name `svc_backup`, Ticket Encryption Type `0x17`)
-- [ ] `02-asrep-4768.png` (Account `svc_ftp`, Pre-Authentication Type `0`)
-- [ ] `03-spray-ntlm-4625.png` (`claire.dupont`, Workstation `WS01`, Source IP)
-- [ ] `04-powershell-4104-decoded.png` (encoded command decoded by ScriptBlock logging)
-- [ ] `05-lsass-sysmon11.png` (TargetFilename `lsass.DMP`, Image `taskmgr.exe`)
-- [ ] `06-external-attack-185.156.73.74.png` (bonus, if the events are still in the DC log)
+- [x] `01-kerberoasting-4769-rc4.png` (Service Name `svc_backup`, Ticket Encryption Type `0x17`, captured during Day 3, 24/03/2026 13:23:00)
+- [x] `02-external-attack-4625-185.156.73.74.png` (Event 4625 from external IP `185.156.73.74`, captured 20/03/2026, 4 days before the planned Day 3 of the lab)
+- [ ] `03-asrep-4768.png` (Account `svc_ftp`, Pre-Authentication Type `0`) - deferred
+- [ ] `04-spray-ntlm-4625.png` (`claire.dupont`, Workstation `WS01`, Source IP) - deferred
+- [ ] `05-powershell-4104-decoded.png` (encoded command decoded by ScriptBlock logging) - deferred
+- [ ] `06-lsass-sysmon11.png` (TargetFilename `lsass.DMP`, Image `taskmgr.exe`) - deferred
 
-### GPO HTML reports ( `evidence/gpo-reports/` )
+### GPO HTML reports ( `evidence/gpo-reports/` ) - SHIPPED IN v2
 
-Already generated on the VM during the lab, stored in `Documents\windows\` on `dc01`. To rapatriate and place here :
+Generated on the VM during the lab, stored in `Documents\windows\` on `dc01`, rapatriated and converted from UTF-16 (Edge save-as default) to UTF-8 for repository consistency. Both reports are clickable navigable HTML, not just textual exports :
 
-- [ ] `default-domain-policy.html`
-- [ ] `security-monitoring.html`
+- [x] `01-default-domain-policy.html` (password policy, account lockout, Kerberos policy)
+- [x] `02-security-monitoring-policy.html` (Advanced Audit Policy, PowerShell ScriptBlock and Module logging, Command line in process creation)
+
+### Hostname transparency note
+
+Note: screenshots in `evidence/screenshots/` show the real lab hostname `Johan-dc01.becode.corp.lab`. Throughout the textual documentation (`docs/`), this same machine is referred to as `dc01` for brevity and convention. They are the same system.
 
 ## Anonymization Rules Applied to v1 Docs
 

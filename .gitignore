@@ -17,11 +17,13 @@ raw/
 *.local
 *.local.md
 
-# Raw evidence not yet anonymized (v2 will populate evidence/screenshots and evidence/gpo-reports)
+# Evidence : allow committed PNG screenshots and HTML GPO reports, block raw working files
 evidence/screenshots/*
 !evidence/screenshots/.gitkeep
+!evidence/screenshots/*.png
 evidence/gpo-reports/*
 !evidence/gpo-reports/.gitkeep
+!evidence/gpo-reports/*.html
 
 # Logs and exports
 *.log

@@ -1,10 +1,30 @@
 # AD Lab Azure : Build, Harden, Detect
 
-> Three day BeCode lab (BCC-2026, March 2026) building an Active Directory domain on Azure, hardening it with group policy, instrumenting it with Sysmon and PowerShell logging, and running 11 attack techniques to validate the detection chain end to end. One of the 11 techniques was unsolicited : an external bot started credential-stuffing the DC during the monitoring window. That capture is the centrepiece of section "Notable findings" below.
+> Three day BeCode lab (BCC-2026, March 2026) building an Active Directory domain on Azure, hardening it with group policy, instrumenting it with Sysmon and PowerShell logging, and running 11 attack techniques to validate the detection chain end to end.
+>
+> One of those 11 was unsolicited : an external bot started credential-stuffing the DC during the monitoring window. That capture is the centrepiece of [Notable findings](#notable-findings).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![markdownlint](https://github.com/Jhatchi/Ad-lab-Azure-BC-2026/actions/workflows/markdownlint.yml/badge.svg)](.github/workflows/markdownlint.yml)
-![Status](https://img.shields.io/badge/status-v1.0-blue)
+![Status](https://img.shields.io/badge/status-v2.0-blue)
+
+---
+
+## Contents
+
+- [Operational notice](#operational-notice)
+- [TL;DR](#tldr)
+- [What this lab demonstrates](#what-this-lab-demonstrates)
+- [Tools used](#tools-used)
+- [How to read this lab](#how-to-read-this-lab)
+- [Architecture at a glance](#architecture-at-a-glance)
+- [Build summary](#build-summary)
+- [Attack and detection coverage](#attack-and-detection-coverage)
+- [Notable findings](#notable-findings)
+- [Repository structure](#repository-structure)
+- [Deliverables](#deliverables)
+- [License](#license)
+- [Author](#author)
 
 ---
 
@@ -20,9 +40,9 @@ The detection techniques described in this repository are intended for defensive
 
 - Built a Windows Server 2025 AD domain on Azure from scratch, including OU layout, password policy hardening, group policy auditing, DHCP, and a domain-joined Windows 10 client.
 - Instrumented both hosts with Sysmon 15.15 (SwiftOnSecurity config) and PowerShell ScriptBlock logging.
-- Ran 6 native attack scenarios + 5 Red/Blue purple-team techniques covering 11 MITRE ATT&CK techniques across 6 tactics. **Detection rate : 11 / 11.**
+- Ran 6 native attack scenarios + 5 Red/Blue bonus techniques covering 11 MITRE ATT&CK techniques across 6 tactics. **Detection rate : 11 / 11.**
 - Observed an unsolicited external credential-stuffing attack from `185.156.73.74` against the exposed DC during the lab's monitoring window. Captured the full Event 4625 chain and used it as real-world validation of the detection stack.
-- Captured 11 Event Viewer detection events end-to-end across the 11 MITRE techniques exercised in the lab.
+- Captured 11 Event Viewer detection events end-to-end, with 2 screenshots and 2 navigable GPO HTML exports under [`evidence/`](evidence/).
 
 ---
 
@@ -36,8 +56,8 @@ The detection techniques described in this repository are intended for defensive
 | Native detection scenarios               | 6     |
 | Red/Blue bonus techniques                | 5     |
 | MITRE ATT&CK techniques mapped           | 11    |
-| Captured Event Viewer outputs (verbatim) | 11    |
-| Native detection events documented       | 11    |
+| Event Viewer outputs captured (verbatim) | 11    |
+| Visual evidence artifacts (PNG + HTML)   | 4     |
 | Sysmon installations (DC + client)       | 2     |
 | Real-world external attacks observed     | 1     |
 | Accepted risks documented and justified  | 8     |
@@ -92,6 +112,8 @@ The detection techniques described in this repository are intended for defensive
 
 Full design rationale and threat model in [`docs/01-architecture.md`](docs/01-architecture.md).
 
+> **Hostname note** : `dc01` and `ws01` are the published aliases used throughout `docs/`. Screenshots under `evidence/screenshots/` show the real lab hostnames (`Johan-dc01.becode.corp.lab` for the DC). Same systems, different naming convention. See [`evidence/README.md`](evidence/README.md) for the full anonymization table.
+
 ---
 
 ## Build summary
@@ -100,7 +122,7 @@ Full design rationale and threat model in [`docs/01-architecture.md`](docs/01-ar
 
 **Day 2 :** Built the BeCode Corp. directory structure (9 OUs, 13 users, 8 security groups), hardened the Default Domain Policy (12-character minimum passwords, complexity required, 90 day max age, account lockout at 5 attempts), and applied a dedicated `Security-Monitoring` GPO covering PowerShell ScriptBlock logging, Kerberos audit, logon/logoff audit, account management audit, and process creation auditing with full command line. Stood up DHCP on the workstation subnet.
 
-**Day 3 :** Installed Sysmon 15.15 on both hosts. Ran 6 native attack scenarios on `dc01` (password spray Kerberos + NTLM, backdoor account creation, DC reconnaissance, encoded PowerShell, scheduled task persistence, outbound DNS query). Ran 2 cross-host scenarios from `ws01` (Kerberos spray via hostname, NTLM spray via IP). Closed with 5 Red/Blue bonus techniques (Kerberoasting, AS-REP Roasting, AD Enumeration via PowerShell, LSASS memory dump, lateral movement via PSRemoting). **All 11 techniques produced detectable events.**
+**Day 3 :** Installed Sysmon 15.15 on both hosts. Ran 6 native attack scenarios covering password spray (Kerberos + NTLM, executed both locally on `dc01` and cross-host from `ws01`), backdoor account creation, DC reconnaissance, encoded PowerShell, scheduled task persistence, and outbound DNS query. Closed with 5 Red/Blue bonus techniques (Kerberoasting, AS-REP Roasting, AD Enumeration via PowerShell, LSASS memory dump, lateral movement via PSRemoting). **All 11 techniques produced detectable events.**
 
 Full walkthrough with operational notes (NLA bypass, PSRemoting prep, encoding damage through cmd.exe) : [`docs/02-build-walkthrough.md`](docs/02-build-walkthrough.md).
 
@@ -220,9 +242,7 @@ Ad-lab-Azure-BC-2026/
 
 ---
 
-## Roadmap
-
-### v1.0 (this release)
+## Deliverables
 
 - [x] Textual lab documentation (`docs/lab-documentation.md`)
 - [x] Architecture and threat model (`docs/01-architecture.md`)
@@ -232,14 +252,10 @@ Ad-lab-Azure-BC-2026/
 - [x] Lessons learned including external attack writeup (`docs/05-lessons-learned.md`)
 - [x] MITRE ATT&CK consolidated mapping (`docs/06-mitre-mapping.md`)
 - [x] Reusable PowerShell snippets (`scripts/powershell-snippets.md`)
+- [x] Event Viewer screenshots : [Kerberoasting 4769 RC4](evidence/screenshots/01-kerberoasting-4769-rc4.png) and [external attack 4625](evidence/screenshots/02-external-attack-4625-185.156.73.74.png)
+- [x] GPO HTML exports : [Default Domain Policy](evidence/gpo-reports/01-default-domain-policy.html) and [Security-Monitoring](evidence/gpo-reports/02-security-monitoring-policy.html)
 
-### v2.0 (shipped)
-
-- [x] Event Viewer screenshots : [Kerberoasting 4769 RC4](evidence/screenshots/01-kerberoasting-4769-rc4.png) and [external attack 4625 from 185.156.73.74](evidence/screenshots/02-external-attack-4625-185.156.73.74.png)
-- [x] GPO HTML exports (navigable, not just textual) : [Default Domain Policy](evidence/gpo-reports/01-default-domain-policy.html) and [Security-Monitoring](evidence/gpo-reports/02-security-monitoring-policy.html)
-- [ ] Live detection demo (GIF or video walkthrough)
-
-Full v2 plan and per-artifact justification in [`evidence/README.md`](evidence/README.md).
+Methodology, anonymization rules, and per-artifact context in [`evidence/README.md`](evidence/README.md).
 
 ---
 
@@ -249,6 +265,6 @@ MIT. See [LICENSE](LICENSE).
 
 ## Author
 
-Johan-Emmanuel Hatchi. BeCode Brussels, Cybersecurity track 2026. Connect on [LinkedIn](https://www.linkedin.com/in/johan-emmanuel-hatchi/).
+Johan-Emmanuel Hatchi. BeCode Brussels, Cybersecurity track 2026. Connect on [LinkedIn](https://www.linkedin.com/in/johan-emmanuel-hatchi/) or [GitHub](https://github.com/Jhatchi).
 
 Permission to publish this BeCode lab : Thomas Bataboudila, 17 May 2026, general portfolio authorisation for all BeCode projects.
